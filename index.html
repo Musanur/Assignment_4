@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+   <section id="order-section">
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Mega City Bus</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Explore By Bus</h3>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Dhaka">
+                </div>
+                <div class="input-group">
+                    <label" for="">From</label>
+                    <input class="inp-style" type="text" name="" placeholder="Chittagone">
+                </div>
+            </div>
+
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="inputs">
+                <div class="input-group f-class">
+                <div>
+                    <label for="">First Class <span id="ticket-prise">($150)</span></label>
+                    <input id="ticket-count" class="inp-style inp-width" type="number" name="" value="0">
+                </div>
+                <div class="plus-minus-btn">
+                    <p> <span id="ticket-add">+</span> <span id="ticket-subtract">-</span></p>
+                </div>
+            </div>
+                <div class="input-group f-class">
+                    <div>
+                        <label for="">Economy <span id="economy-ticket-price">($100)</span></label>
+                        <input id="economy-ticket-count" class="inp-style inp-width" type="number" name="" value="0">
+                    </div>
+                    <div class="plus-minus-btn">
+                        <p> <span id="economy-ticket-add">+</span> <span id="economy-ticket-subtract">-</span> </p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="sub-total">$00</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="vat-amount">$00</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="total">$00</p>
+                    </div>
+                </div>
+            </div>
+            <button id="buy-now" class="btn-style">Buy Now</button>
+        </div>
+    </main>
+   </section>
+
+    <div id="Massage-area">
+        <h1>Thank You So Much For Buying The Ticket</h1>
+    </div>
+    <!--Thank You-->
+
+    <!-- javaScript Start -->
+
+    <script>
+        // First Class Ticket
+
+        document.getElementById('ticket-add').addEventListener('click', function(){
+            const ticketInput = document.getElementById('ticket-count');
+            const ticketCount = parseInt(ticketInput.value);
+            const ticketNewCount = ticketCount + 1;
+            ticketInput.value = ticketNewCount;
+            const ticketTotalPrise = ticketNewCount * 120;
+            document.getElementById('ticket-prise').innerText = '$' + ticketTotalPrise;
+            calculationsTotal()
+        })
+
+        document.getElementById('ticket-subtract').addEventListener('click', function(){
+            const ticketInput = document.getElementById('ticket-count');
+            const ticketCount = parseInt(ticketInput.value);
+            const ticketNewCount = ticketCount - 1;
+            ticketInput.value = ticketNewCount;
+            const ticketTotalPrise = ticketNewCount * 120;
+            document.getElementById("ticket-prise").innerText = "$" + ticketTotalPrise;
+            calculationsTotal()
+        })
+
+        // Economy Ticket
+        document.getElementById('economy-ticket-add').addEventListener('click', function(){
+            const EconomyTicketInput = document.getElementById('economy-ticket-count');
+            const EconomyTicketCount = parseInt(EconomyTicketInput.value);
+            const EconomyTicketNewCount = EconomyTicketCount + 1;
+            EconomyTicketInput.value = EconomyTicketNewCount;
+            const EconomyTicketPrice = EconomyTicketNewCount * 100 ;
+            document.getElementById('economy-ticket-price').innerText = '$' + EconomyTicketPrice;
+            calculationsTotal()
+        })
+        
+        document.getElementById('economy-ticket-subtract').addEventListener('click', function(){
+            const EconomyTicketInput = document.getElementById('economy-ticket-count');
+            const EconomyTicketCount = parseInt(EconomyTicketInput.value);
+            const EconomyTicketNewCount = EconomyTicketCount - 1;
+            EconomyTicketInput.value = EconomyTicketNewCount;
+            const EconomyTicketPrice = EconomyTicketNewCount * 100 ;
+            document.getElementById('economy-ticket-price').innerText = '$' + EconomyTicketPrice;
+            calculationsTotal()
+        })
+
+        // totalTicketPrice 
+        function calculationsTotal(){
+            const ticketInput = document.getElementById('ticket-count');
+            const ticketCount = parseInt(ticketInput.value);
+
+            const EconomyTicketInput = document.getElementById('economy-ticket-count');
+            const EconomyTicketCount = parseInt(EconomyTicketInput.value); 
+
+            const subTotalAmount = ticketCount * 120 + EconomyTicketCount * 100;
+            document.getElementById('sub-total').innerText = '$' + subTotalAmount;
+
+            const vat = Math.round(subTotalAmount * 0.1);
+            document.getElementById('vat-amount').innerText = '$' + vat;
+
+            const Total = subTotalAmount + vat;
+            document.getElementById('total').innerText = '$' + Total;
+        }
+
+        const mainContent = document.getElementById('buy-now');
+        mainContent.addEventListener('click', function(){
+            const orderArea = document.getElementById('order-section');
+            orderArea.style.display = 'none';
+            const MassageArea = document.getElementById('Massage-area')
+            MassageArea.style.display ="block";
+        })
+
+    </script>
+
+
+
+    <!-- javaScript End   -->
+</body>
+
+</html>
